@@ -86,7 +86,7 @@ if [ $pool != "all" ]; then
     do
         for image in $(rbd ls -p $pool)
         do
-            if rbd info -p CephVMs $image | grep $objectid
+            if rbd info -p $pool $image | grep $objectid
             then
                 echo $image >> /tmp/imagesonosd.txt
             fi
