@@ -72,7 +72,7 @@ if [ $pool == "all" ]; then
             do
                 if rbd info -p $pool $image | grep $objectid
                 then
-                    echo $image >> /tmp/imagesonosd.txt
+                    echo $pool\/$image >> /tmp/imagesonosd.txt
                 fi
             done
         done    
