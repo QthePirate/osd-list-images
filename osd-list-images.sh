@@ -2,7 +2,7 @@
 
 usage() { echo -e "Usage: ${0} [-p <pool name>] [-o <osd id number>]\n At least an OSD number (-o) is required"  1>&2; exit 0; }
 
- verifiedPool="false" 
+verifiedPool="false" 
 
 while getopts "p:o:h" f; do
     case "${f}" in
@@ -36,7 +36,7 @@ fi
 for pools in $(ceph osd pool ls)
 do
     if [ $pools == $pool ]; then 
-        verifiedPool = "true"
+        verifiedPool="true"
     fi
 done
 
@@ -44,6 +44,12 @@ if [ $verifiedPool == "false" ]; then
     echo "Pool could not be found in ceph cluster. Please check your pool name and try again."
     exit 0;
 fi 
+
+OSDExists=$(ceph osd find $osd 2>&1)
+if [[ $OSDExists =~ "Error" ]]; then
+    echo "The OSD you entered could not be found in the Ceph cluster. Please check your OSD number and try again."
+    exit 0
+fi
 
 if [ $pool == "all" ]; then 
         echo "Checking all pools"
