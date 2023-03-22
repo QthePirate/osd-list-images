@@ -88,7 +88,7 @@ if [ $pool != "all" ]; then
         do
             if rbd info -p $pool $image | grep $objectid
             then
-                echo $image >> /tmp/imagesonosd.txt
+                echo $pool\/$image >> /tmp/imagesonosd.txt
             fi
         done
     done</tmp/objectsinpgs.txt
@@ -100,5 +100,5 @@ fi
 
 
 
-echo -e "\n\nDONE! Please view the file located in the current directory labeled affectedimages.txt"\n
+echo -e "\n\nDONE! Please view the file located in the current directory labeled affectedimages.txt"
 echo -e "Please rename this file before running again."
